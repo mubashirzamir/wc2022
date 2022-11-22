@@ -37,11 +37,37 @@ class Game extends Model
 {
     use HasFactory;
 
-    public function homeTeam(){
-        return $this->belongsTo('team', 'home_id');
+    protected $fillable = [
+        'date',
+        'time',
+        'home_id',
+        'home_score',
+        'away_id',
+        'away_score',
+        'result',
+    ];
+
+    protected $appends = ['score_string'];
+
+    public function homeTeam()
+    {
+        return $this->belongsTo('App\Models\Team', 'home_id');
     }
 
-    public function awayTeam(){
-        return $this->belongsTo('team', 'away_id');
+    public function awayTeam()
+    {
+        return $this->belongsTo('App\Models\Team', 'away_id');
+    }
+
+    public function getScoreStringAttribute()
+    {
+        $homeTeamName = $this->homeTeam()->first()->name;
+        $awayTeamName = $this->awayTeam()->first()->name;
+
+        if ($this->home_score === null || $this->away_score === null) {
+            return $homeTeamName . 'TBP' . $this->$awayTeamName;
+        }
+
+        return $homeTeamName . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $awayTeamName;
     }
 }

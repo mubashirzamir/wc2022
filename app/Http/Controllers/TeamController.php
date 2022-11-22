@@ -21,18 +21,14 @@ class TeamController extends Controller
 
     public function create()
     {
-        return Inertia::render('Teams/Form');
+        return Inertia::render('Teams/FormComponent');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        Team::create($request->all());
+
+        return \Redirect::route('teams.index');
     }
 
     /**

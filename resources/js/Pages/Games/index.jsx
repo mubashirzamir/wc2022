@@ -5,16 +5,13 @@ import {Button, Table} from 'antd'
 
 export default function Games(props) {
 
+    console.log('mubashir1', props)
+
     const gameColumns = [
         {
-            title: 'Home ID',
-            dataIndex: 'home_id',
-            key: 'home_id',
-        },
-        {
-            title: 'Away ID',
-            dataIndex: 'away_id',
-            key: 'away_id',
+            title: 'Match',
+            dataIndex: 'score_string',
+            key: 'id',
         },
         {
             title: 'Date',
@@ -37,7 +34,7 @@ export default function Games(props) {
             <Head title="Games"/>
 
             <div className="flex py-4 px-2">
-                <InertiaLink href={route("teams.create")}>
+                <InertiaLink href={route("games.create")}>
                     <Button>Create</Button>
                 </InertiaLink>
             </div>

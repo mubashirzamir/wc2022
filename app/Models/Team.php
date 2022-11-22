@@ -36,7 +36,7 @@ class Team extends Model
     ];
 
     public function game(){
-        return $this->hasMany('game');
+        return $this->hasMany('App\Models\Game');
     }
 
 }

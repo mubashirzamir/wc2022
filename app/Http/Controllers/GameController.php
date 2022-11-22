@@ -11,7 +11,10 @@ class GameController extends Controller
 {
     public function index()
     {
-        $games = Game::orderBy('date')->orderBy('time')->get();
+        $games = Game::with('homeTeam', 'awayTeam')
+            ->orderBy('date')
+            ->orderBy('time')
+            ->get();
 
         return Inertia::render('Games/index',
             [
@@ -20,25 +23,27 @@ class GameController extends Controller
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $teams = Team::get()->map(function (Team $team) {
+            return [
+                'value' => $team->id,
+                'label' => $team->name
+            ];
+        });
+
+        return Inertia::render('Games/FormComponent',
+            [
+                'teams' => $teams,
+            ]
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        Game::create($request->all());
+
+        return \Redirect::route('games.index');
     }
 
     /**

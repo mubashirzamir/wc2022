@@ -10,6 +10,11 @@ export default function Teams(props) {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+        },
+        {
+            title: 'Group',
+            dataIndex: 'group',
+            key: 'group',
         }
     ];
 
