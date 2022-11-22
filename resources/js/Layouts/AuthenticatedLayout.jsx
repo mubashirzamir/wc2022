@@ -15,7 +15,7 @@ export default function Authenticated({ auth, header, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
+                                <Link href="/dashboard">
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
@@ -23,6 +23,12 @@ export default function Authenticated({ auth, header, children }) {
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
+                                </NavLink>
+                                <NavLink href={route('teams.index')} active={route().current('teams.index')}>
+                                    Manage Teams
+                                </NavLink>
+                                <NavLink href={route('games.index')} active={route().current('games.index')}>
+                                    Manage Games
                                 </NavLink>
                             </div>
                         </div>
@@ -94,6 +100,12 @@ export default function Authenticated({ auth, header, children }) {
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('teams.index')} active={route().current('teams.index')}>
+                            Manage Teams
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('games.index')} active={route().current('games.index')}>
+                            Manage Games
                         </ResponsiveNavLink>
                     </div>
 

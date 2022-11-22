@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Game;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class GameController extends Controller
+class TeamController extends Controller
 {
     public function index()
     {
-        $games = Game::orderBy('date')->orderBy('time')->get();
+        $teams = Team::get();
 
-        return Inertia::render('Games/index',
+        return Inertia::render('Teams/index',
             [
-                'games' => $games,
+                'teams' => $teams,
             ]
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return Inertia::render('Teams/Form');
     }
 
     /**
@@ -44,10 +38,10 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Game $game
+     * @param \App\Models\Team $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function show(Team $team)
     {
         //
     }
@@ -55,10 +49,10 @@ class GameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Game $game
+     * @param \App\Models\Team $team
      * @return \Illuminate\Http\Response
      */
-    public function edit(Game $game)
+    public function edit(Team $team)
     {
         //
     }
@@ -67,10 +61,10 @@ class GameController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Game $game
+     * @param \App\Models\Team $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(Request $request, Team $team)
     {
         //
     }
@@ -78,10 +72,10 @@ class GameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Game $game
+     * @param \App\Models\Team $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Game $game)
+    public function destroy(Team $team)
     {
         //
     }
