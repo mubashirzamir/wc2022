@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('home_score');
             $table->integer('away_score');
             $table->string('result');
+            $table->integer('score_points');
+            $table->integer('result_points');
             $table->timestamps();
         });
     }

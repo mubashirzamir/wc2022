@@ -5,8 +5,6 @@ import {Button, Table} from 'antd'
 
 export default function Games(props) {
 
-    console.log('mubashir1', props)
-
     const gameColumns = [
         {
             title: 'Match',
@@ -33,14 +31,16 @@ export default function Games(props) {
         >
             <Head title="Games"/>
 
-            <div className="flex py-4 px-2">
-                <InertiaLink href={route("games.create")}>
-                    <Button>Create</Button>
-                </InertiaLink>
-            </div>
 
             <div className="py-4">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                    <div className="pb-3">
+                        <InertiaLink href={route("games.create")}>
+                            <Button>Create</Button>
+                        </InertiaLink>
+                    </div>
+
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <Table
                             columns={gameColumns}

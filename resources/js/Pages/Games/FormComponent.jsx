@@ -29,75 +29,77 @@ export default function FormComponent(props) {
             <Head title="Create Game"/>
 
             <div className="py-4 px-2">
-                <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
-                    <Form>
-                        <Form.Item name="date"
-                                   label="Date"
-                                   rules={[{required: true, message: 'Please select the date.'}]}
-                        >
-                            <DatePicker/>
-                        </Form.Item>
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
+                        <Form>
+                            <Form.Item name="date"
+                                       label="Date"
+                                       rules={[{required: true, message: 'Please select the date.'}]}
+                            >
+                                <DatePicker/>
+                            </Form.Item>
 
-                        <Form.Item name="time"
-                                   label="Time"
-                                   rules={[{required: true, message: 'Please select the time.'}]}
-                        >
-                            <TimePicker/>
-                        </Form.Item>
+                            <Form.Item name="time"
+                                       label="Time"
+                                // rules={[{required: true, message: 'Please select the time.'}]}
+                            >
+                                <TimePicker/>
+                            </Form.Item>
 
-                        <Divider/>
+                            <Divider/>
 
-                        <Form.Item
-                            name="home_id"
-                            label="Team 01"
-                            rules={[{required: true, message: 'Please select a team'}]}
-                        >
-                            <Select placeholder="Please select a team" options={props.teams}/>
-                        </Form.Item>
+                            <Form.Item
+                                name="home_id"
+                                label="Team 01"
+                                rules={[{required: true, message: 'Please select a team'}]}
+                            >
+                                <Select placeholder="Please select a team" options={props.teams}/>
+                            </Form.Item>
 
-                        <Form.Item name="home_score"
-                                   label="Team 01 Score"
-                                   rules={[{required: true, type: 'number', min: 0, max: 99}]}>
-                            <InputNumber/>
-                        </Form.Item>
+                            <Form.Item name="home_score"
+                                       label="Team 01 Score"
+                                       rules={[{required: true, type: 'number', min: 0, max: 99}]}>
+                                <InputNumber/>
+                            </Form.Item>
 
-                        <Divider/>
+                            <Divider/>
 
-                        <Form.Item
-                            name="away_id"
-                            label="Team 02"
-                            rules={[{required: true, message: 'Please select a team'}]}
-                        >
-                            <Select placeholder="Please select a team" options={props.teams}/>
-                        </Form.Item>
+                            <Form.Item
+                                name="away_id"
+                                label="Team 02"
+                                rules={[{required: true, message: 'Please select a team'}]}
+                            >
+                                <Select placeholder="Please select a team" options={props.teams}/>
+                            </Form.Item>
 
-                        <Form.Item name="away_score"
-                                   label="Team 02 Score"
-                                   rules={[{required: true, type: 'number', min: 0, max: 99}]}>
-                            <InputNumber/>
-                        </Form.Item>
+                            <Form.Item name="away_score"
+                                       label="Team 02 Score"
+                                       rules={[{required: true, type: 'number', min: 0, max: 99}]}>
+                                <InputNumber/>
+                            </Form.Item>
 
-                        <Divider/>
+                            <Divider/>
 
-                        <Form.Item
-                            name="result"
-                            label="Result"
-                            rules={[{required: true, message: 'Please select a result'}]}
-                        >
-                            <Select placeholder="Please select a result">
-                                <Option value="h">Team 01 Win</Option>
-                                <Option value="a">Team 02 Win</Option>
-                                <Option value="d">Draw</Option>
-                            </Select>
-                        </Form.Item>
+                            <Form.Item
+                                name="result"
+                                label="Result"
+                                rules={[{required: true, message: 'Please select a result'}]}
+                            >
+                                <Select placeholder="Please select a result">
+                                    <Option value="h">Team 01 Win</Option>
+                                    <Option value="a">Team 02 Win</Option>
+                                    <Option value="d">Draw</Option>
+                                </Select>
+                            </Form.Item>
 
-                        <Form.Item className="float-right">
-                            <Button htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </FormProvider>
+                            <Form.Item className="float-right">
+                                <Button htmlType="submit">
+                                    Submit
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </FormProvider>
+                </div>
             </div>
 
         </AuthenticatedLayout>

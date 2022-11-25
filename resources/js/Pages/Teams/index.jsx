@@ -26,18 +26,22 @@ export default function Teams(props) {
         >
             <Head title="Teams"/>
 
-            <div className="flex py-4 px-2">
-                <InertiaLink href={route("teams.create")}>
-                    <Button>Create</Button>
-                </InertiaLink>
-            </div>
 
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <Table
-                        columns={columns}
-                        dataSource={props.teams}
-                    />
+            <div className="py-4">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                    <div className="pb-3">
+                        <InertiaLink href={route("teams.create")}>
+                            <Button>Create</Button>
+                        </InertiaLink>
+                    </div>
+
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <Table
+                            columns={columns}
+                            dataSource={props.teams}
+                        />
+                    </div>
                 </div>
             </div>
 

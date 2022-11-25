@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('time');
+            $table->time('time')->nullable();
             $table->foreignId('home_id')->index()->constrained('teams')->cascadeOnDelete();
             $table->integer('home_score')->index()->nullable();
             $table->foreignId('away_id')->index()->constrained('teams')->cascadeOnDelete();

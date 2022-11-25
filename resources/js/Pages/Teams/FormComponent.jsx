@@ -28,30 +28,32 @@ export default function FormComponent(props) {
             <Head title="Create Team"/>
 
             <div className="py-4 px-2">
-                <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
-                    <Form>
-                        <Form.Item
-                            label="Name"
-                            name="name"
-                            rules={[{required: true, message: 'Please input team name'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
+                        <Form>
+                            <Form.Item
+                                label="Name"
+                                name="name"
+                                rules={[{required: true, message: 'Please input team name'}]}
+                            >
+                                <Input/>
+                            </Form.Item>
 
-                        <Form.Item
-                            label="Group"
-                            name="group"
-                        >
-                            <Input/>
-                        </Form.Item>
+                            <Form.Item
+                                label="Group"
+                                name="group"
+                            >
+                                <Input/>
+                            </Form.Item>
 
-                        <Form.Item className="float-right">
-                            <Button htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </FormProvider>
+                            <Form.Item className="float-right">
+                                <Button htmlType="submit">
+                                    Submit
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </FormProvider>
+                </div>
             </div>
 
         </AuthenticatedLayout>
