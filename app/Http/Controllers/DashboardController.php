@@ -17,11 +17,9 @@ class DashboardController extends Controller
             ->orderBy('time')
             ->get();
 
-        return Inertia::render('Dashboard',
-            [
-                'users' => $users,
-                'games' => $games,
-            ]
-        );
+        return Inertia::render('Dashboard', [
+            'users' => $users,
+            'games' => $games,
+        ]);
     }
 }

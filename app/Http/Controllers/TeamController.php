@@ -12,11 +12,9 @@ class TeamController extends Controller
     {
         $teams = Team::get();
 
-        return Inertia::render('Teams/index',
-            [
-                'teams' => $teams,
-            ]
-        );
+        return Inertia::render('Teams/index', [
+            'teams' => $teams,
+        ]);
     }
 
     public function create()

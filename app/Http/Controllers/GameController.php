@@ -16,11 +16,9 @@ class GameController extends Controller
             ->orderBy('time')
             ->get();
 
-        return Inertia::render('Games/index',
-            [
-                'games' => $games,
-            ]
-        );
+        return Inertia::render('Games/index', [
+            'games' => $games,
+        ]);
     }
 
     public function create()

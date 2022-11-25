@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
@@ -42,6 +43,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('teams', TeamController::class);
     Route::resource('games', GameController::class);
+    Route::resource('users', RegisteredUserController::class);
 });
 
 

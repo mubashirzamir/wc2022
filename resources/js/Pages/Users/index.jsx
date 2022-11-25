@@ -4,27 +4,27 @@ import {Head, InertiaLink} from '@inertiajs/inertia-react';
 import {Button} from 'antd'
 import {GenericTable} from '@/Components/GenericTable'
 
-export default function Games(props) {
+export default function Users(props) {
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Games</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Users</h2>}
         >
-            <Head title="Games"/>
+            <Head title="Users"/>
 
 
             <div className="py-4">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
                     <div className="pb-3">
-                        <InertiaLink href={route("games.create")}>
+                        <InertiaLink href={route("users.create")}>
                             <Button>Create</Button>
                         </InertiaLink>
                     </div>
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <GamesTable data={props.games}/>
+                        <UsersTable data={props.users}/>
                     </div>
 
                 </div>
@@ -35,23 +35,18 @@ export default function Games(props) {
     );
 }
 
-export const GamesTable = props => {
+export const UsersTable = props => {
 
     const columns = [
         {
-            title: 'Match',
-            dataIndex: 'score_string',
-            key: 'id',
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
         },
         {
-            title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
-        },
-        {
-            title: 'Time',
-            dataIndex: 'time',
-            key: 'time',
+            title: 'Points',
+            dataIndex: 'points',
+            key: 'points',
         },
     ];
 
