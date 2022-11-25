@@ -15,16 +15,24 @@ class PredictionObserver
     public function created(Prediction $prediction)
     {
         // Eventually will prevent players to create and update predictions after the game
+        // The logic below is responsible for updating prediction and user points when a prediction is created.
         $game = $prediction->game()->first();
-        if ($game->result === $prediction->result) {
-            $prediction->result_points = 1;
-            if ($game->home_score === $prediction->home_score && $game->away_score === $prediction->away_score) {
-                $prediction->score_points = 2;
+        if ($game->result !== null) {
+            if ($game->result === $prediction->result) {
+                $prediction->result_points = 1;
+                if ($game->home_score === $prediction->home_score && $game->away_score === $prediction->away_score) {
+                    $prediction->score_points = 2;
+                }
             }
-        }
-        $prediction->points = $prediction->score_points + $prediction->result_points;
+            $prediction->points = $prediction->score_points + $prediction->result_points;
 
-        $prediction->saveQuietly();
+            $player = $prediction->player()->first();
+            $player->points += $prediction->points;
+
+            $player->saveQuietly();
+            $prediction->saveQuietly();
+        }
+
     }
 
     /**

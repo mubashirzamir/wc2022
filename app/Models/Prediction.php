@@ -44,9 +44,6 @@ class Prediction extends Model
     ];
 
     protected $appends = ['predicted_score_line'];
-    /**
-     * @var int|mixed
-     */
 
     public function player()
     {
