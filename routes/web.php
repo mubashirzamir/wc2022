@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Foundation\Application;
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('teams', TeamController::class);
     Route::resource('games', GameController::class);
     Route::resource('users', RegisteredUserController::class);
+    Route::resource('predictions', PredictionController::class);
 });
 
 

@@ -30,11 +30,9 @@ class GameController extends Controller
             ];
         });
 
-        return Inertia::render('Games/FormComponent',
-            [
-                'teams' => $teams,
-            ]
-        );
+        return Inertia::render('Games/FormComponent', [
+            'teams' => $teams,
+        ]);
     }
 
     public function store(Request $request)

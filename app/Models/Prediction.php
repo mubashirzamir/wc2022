@@ -32,4 +32,34 @@ use Illuminate\Database\Eloquent\Model;
 class Prediction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'game_id',
+        'home_score',
+        'away_score',
+        'result',
+        'score_points',
+        'result_points',
+    ];
+
+    protected $appends = ['predicted_score_line'];
+    /**
+     * @var int|mixed
+     */
+
+    public function player()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+    public function game()
+    {
+        return $this->hasOne('App\Models\Game', 'id', 'game_id');
+    }
+
+    public function getPredictedScoreLineAttribute()
+    {
+        return $this->game()->first()->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->game()->first()->getAwayTeamName() ;
+    }
 }

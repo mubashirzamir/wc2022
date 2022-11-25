@@ -33,6 +33,9 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('users.index')} active={route().current('users.index')}>
                                     Manage Users
                                 </NavLink>
+                                <NavLink href={route('predictions.index')} active={route().current('predictions.index')}>
+                                    Manage Predictions
+                                </NavLink>
                             </div>
                         </div>
 
@@ -112,6 +115,9 @@ export default function Authenticated({ auth, header, children }) {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('users.index')} active={route().current('users.index')}>
                             Manage Users
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('predictions.index')} active={route().current('predictions.index')}>
+                            Manage Predictions
                         </ResponsiveNavLink>
                     </div>
 

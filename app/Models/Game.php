@@ -47,7 +47,7 @@ class Game extends Model
         'result',
     ];
 
-    protected $appends = ['score_string'];
+    protected $appends = ['score_line', 'versus'];
 
     public function homeTeam()
     {
@@ -59,15 +59,27 @@ class Game extends Model
         return $this->belongsTo('App\Models\Team', 'away_id');
     }
 
-    public function getScoreStringAttribute()
+    public function getHomeTeamName()
     {
-        $homeTeamName = $this->homeTeam()->first()->name;
-        $awayTeamName = $this->awayTeam()->first()->name;
+        return $this->homeTeam()->first()->name;
+    }
 
+    public function getAwayTeamName()
+    {
+        return $this->awayTeam()->first()->name;
+    }
+
+    public function getScoreLineAttribute()
+    {
         if ($this->home_score === null || $this->away_score === null) {
-            return $homeTeamName . 'TBP' . $this->$awayTeamName;
+            return $this->getHomeTeamName() . 'TBP' . $this->getAwayTeamName();
         }
 
-        return $homeTeamName . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $awayTeamName;
+        return $this->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->getAwayTeamName();
+    }
+
+    public function getVersusAttribute()
+    {
+        return $this->getHomeTeamName() . ' vs ' . $this->getAwayTeamName();
     }
 }
