@@ -12,39 +12,22 @@ class PredictionController extends Controller
 {
     public function index()
     {
-        $predictions = Prediction::with(['player', 'game'])
+        $predictions = Prediction::with(['user', 'game'])
             ->get();
 
         return Inertia::render('Predictions/index',
             [
                 'predictions' => $predictions,
+                'users' => User::filterForAntd()
             ]
         );
     }
 
     public function create()
     {
-        $games = Game::orderByDesc('date')
-            ->orderByDesc('time')
-            ->get()
-            ->map(function (Game $game) {
-                return [
-                    'value' => $game->id,
-                    'label' => $game->versus
-                ];
-            });
-
-        $users = User::get()
-            ->map(function (User $user) {
-                return [
-                    'value' => $user->id,
-                    'label' => $user->name
-                ];
-            });
-
         return Inertia::render('Predictions/FormComponent', [
-            'games' => $games,
-            'users' => $users,
+            'games' => Game::selectForAntd(),
+            'users' => User::selectForAntd(),
         ]);
     }
 

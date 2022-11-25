@@ -26,10 +26,10 @@ class PredictionObserver
             }
             $prediction->points = $prediction->score_points + $prediction->result_points;
 
-            $player = $prediction->player()->first();
-            $player->points += $prediction->points;
+            $user = $prediction->user()->first();
+            $user->points += $prediction->points;
 
-            $player->saveQuietly();
+            $user->saveQuietly();
             $prediction->saveQuietly();
         }
 

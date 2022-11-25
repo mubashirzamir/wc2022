@@ -45,7 +45,7 @@ class Prediction extends Model
 
     protected $appends = ['predicted_score_line'];
 
-    public function player()
+    public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }

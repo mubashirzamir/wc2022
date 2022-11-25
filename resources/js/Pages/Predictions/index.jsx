@@ -24,7 +24,7 @@ export default function Predictions(props) {
                     </div>
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <PredictionsTable data={props.predictions}/>
+                        <PredictionsTable {...props}/>
                     </div>
 
                 </div>
@@ -40,8 +40,10 @@ export const PredictionsTable = props => {
     const columns = [
         {
             title: 'Player',
-            dataIndex: 'player',
-            render: (player => player.name)
+            dataIndex: 'user',
+            filters: props.users,
+            onFilter: (value, record) => record.user_id === value,
+            render: (user => user.name),
         },
         {
             title: 'Prediction',
@@ -61,6 +63,6 @@ export const PredictionsTable = props => {
     ];
 
     return (
-        <GenericTable columns={columns} data={props.data}/>
+        <GenericTable columns={columns} data={props.predictions}/>
     )
 }

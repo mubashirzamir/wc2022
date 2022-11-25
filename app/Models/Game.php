@@ -82,4 +82,18 @@ class Game extends Model
     {
         return $this->getHomeTeamName() . ' vs ' . $this->getAwayTeamName();
     }
+
+    // Should be cached
+    public static function selectForAntd()
+    {
+        return self::orderByDesc('date')
+            ->orderByDesc('time')
+            ->get()
+            ->map(function (Game $game) {
+                return [
+                    'value' => $game->id,
+                    'label' => $game->versus
+                ];
+            });
+    }
 }

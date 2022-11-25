@@ -75,4 +75,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Should be cached
+    public static function filterForAntd()
+    {
+        return self::orderBy('name')
+            ->get()
+            ->map(function (User $user) {
+                return [
+                    'text' => $user->name,
+                    'value' => $user->id,
+                ];
+            });
+    }
+
+    // Should be cached
+    public static function selectForAntd()
+    {
+        return self::get()
+            ->map(function (User $user) {
+                return [
+                    'value' => $user->id,
+                    'label' => $user->name
+                ];
+            });
+    }
 }
