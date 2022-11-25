@@ -1,11 +1,12 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, InertiaLink} from '@inertiajs/inertia-react';
-import {Button, Table} from 'antd'
+import {Button} from 'antd'
+import {GenericTable} from '@/Components/GenericTable'
 
 export default function Games(props) {
 
-    const gameColumns = [
+    const columns = [
         {
             title: 'Match',
             dataIndex: 'score_string',
@@ -42,10 +43,7 @@ export default function Games(props) {
                     </div>
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <Table
-                            columns={gameColumns}
-                            dataSource={props.games}
-                        />
+                        <GenericTable columns={columns} data={props.games}/>
                     </div>
                 </div>
             </div>

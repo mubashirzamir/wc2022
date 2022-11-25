@@ -1,7 +1,8 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, InertiaLink} from '@inertiajs/inertia-react';
-import {Button, Table} from 'antd'
+import {Button} from 'antd'
+import {GenericTable} from '@/Components/GenericTable'
 
 export default function Teams(props) {
 
@@ -37,10 +38,7 @@ export default function Teams(props) {
                     </div>
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <Table
-                            columns={columns}
-                            dataSource={props.teams}
-                        />
+                        <GenericTable columns={columns} data={props.teams}/>
                     </div>
                 </div>
             </div>
