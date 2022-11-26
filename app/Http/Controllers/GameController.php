@@ -23,17 +23,8 @@ class GameController extends Controller
 
     public function create()
     {
-        $teams = Team::orderBy('name')
-            ->get()
-            ->map(function (Team $team) {
-                return [
-                    'value' => $team->id,
-                    'label' => $team->name
-                ];
-            });
-
         return Inertia::render('Games/FormComponent', [
-            'teams' => $teams,
+            'teams' => Team::selectForAntd(),
         ]);
     }
 
@@ -59,11 +50,13 @@ class GameController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Game $game
-     * @return \Illuminate\Http\Response
      */
     public function edit(Game $game)
     {
-        //
+        return Inertia::render('Games/FormComponent', [
+            'teams' => Team::selectForAntd(),
+            'game' => $game,
+        ]);
     }
 
     /**
@@ -75,7 +68,7 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //
+        $game->fill($request->all());
     }
 
     /**

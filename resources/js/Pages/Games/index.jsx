@@ -39,9 +39,15 @@ export const GamesTable = props => {
 
     const columns = [
         {
-            title: 'Match',
+            title: 'Game',
             dataIndex: 'score_line',
             key: 'id',
+            render: (score_line, row) =>
+                <InertiaLink
+                    href={route('games.edit', row.id)}
+                >
+                    {score_line}
+                </InertiaLink>,
         },
         {
             title: 'Date',

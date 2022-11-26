@@ -35,8 +35,20 @@ class Team extends Model
         'group',
     ];
 
-    public function game(){
+    public function game()
+    {
         return $this->hasMany('App\Models\Game');
     }
 
+    public static function selectForAntd()
+    {
+        return self::orderBy('name')
+            ->get()
+            ->map(function (Team $team) {
+                return [
+                    'value' => $team->id,
+                    'label' => $team->name
+                ];
+            });
+    }
 }
