@@ -67,7 +67,7 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        $game->fill($request->all());
+        $game->update($request->only(Game::updatables()));
 
         return \Redirect::route('games.index');
     }

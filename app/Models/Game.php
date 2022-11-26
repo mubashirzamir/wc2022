@@ -47,6 +47,17 @@ class Game extends Model
         'result',
     ];
 
+    public static function updatables()
+    {
+        return [
+            'date',
+            'time',
+            'home_score',
+            'away_score',
+            'result',
+        ];
+    }
+
     protected $appends = ['score_line', 'versus'];
 
     public function homeTeam()
