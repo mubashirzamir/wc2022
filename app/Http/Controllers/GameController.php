@@ -23,12 +23,14 @@ class GameController extends Controller
 
     public function create()
     {
-        $teams = Team::get()->map(function (Team $team) {
-            return [
-                'value' => $team->id,
-                'label' => $team->name
-            ];
-        });
+        $teams = Team::orderBy('name')
+            ->get()
+            ->map(function (Team $team) {
+                return [
+                    'value' => $team->id,
+                    'label' => $team->name
+                ];
+            });
 
         return Inertia::render('Games/FormComponent', [
             'teams' => $teams,

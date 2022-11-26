@@ -10,7 +10,9 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teams = Team::get();
+        $teams = Team::orderBy('group')
+            ->orderBy('name')
+            ->get();
 
         return Inertia::render('Teams/index', [
             'teams' => $teams,

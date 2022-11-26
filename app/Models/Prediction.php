@@ -57,6 +57,26 @@ class Prediction extends Model
 
     public function getPredictedScoreLineAttribute()
     {
-        return $this->game()->first()->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->game()->first()->getAwayTeamName() ;
+        return $this->game()->first()->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->game()->first()->getAwayTeamName();
+    }
+
+    public static function commonPointsUpdateLogic($updating, User $user, Prediction $prediction, Game $game)
+    {
+        if ($updating) {
+            $user->points -= $prediction->points;
+        }
+
+        if ($game->result === $prediction->result) {
+            $prediction->result_points = 1;
+            if ($game->home_score === $prediction->home_score && $game->away_score === $prediction->away_score) {
+                $prediction->score_points = 2;
+            }
+        }
+
+        $prediction->points = $prediction->score_points + $prediction->result_points;
+        $user->points += $prediction->points;
+
+        $user->saveQuietly();
+        $prediction->saveQuietly();
     }
 }

@@ -59,6 +59,11 @@ class Game extends Model
         return $this->belongsTo('App\Models\Team', 'away_id');
     }
 
+    public function predictions()
+    {
+        return $this->hasMany('App\Models\Predictions', 'game_id', 'id');
+    }
+
     public function getHomeTeamName()
     {
         return $this->homeTeam()->first()->name;
