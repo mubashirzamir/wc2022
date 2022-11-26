@@ -64,11 +64,12 @@ class GameController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Game $game
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Game $game)
     {
         $game->fill($request->all());
+
+        return \Redirect::route('games.index');
     }
 
     /**
