@@ -49,6 +49,12 @@ export const PredictionsTable = props => {
             title: 'Prediction',
             dataIndex: 'predicted_score_line',
             key: 'id',
+            render: (predicted_score_line, row) =>
+                <InertiaLink
+                    href={route('predictions.edit', row.id)}
+                >
+                    {predicted_score_line}
+                </InertiaLink>,
         },
         {
             title: 'Result',

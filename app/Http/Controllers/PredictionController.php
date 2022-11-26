@@ -53,11 +53,14 @@ class PredictionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Prediction $prediction
-     * @return \Illuminate\Http\Response
      */
     public function edit(Prediction $prediction)
     {
-        //
+        return Inertia::render('Predictions/FormComponent', [
+            'games' => Game::selectForAntd(),
+            'users' => User::selectForAntd(),
+            'prediction' => $prediction
+        ]);
     }
 
     /**
@@ -65,11 +68,12 @@ class PredictionController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Prediction $prediction
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Prediction $prediction)
     {
-        //
+        $prediction->update($request->only(Prediction::updatables()));
+
+        return \Redirect::route('predictions.index');
     }
 
     /**

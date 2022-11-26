@@ -6,9 +6,21 @@ import {FormProvider} from 'antd/es/form/context'
 
 export default function FormComponent(props) {
 
+    const {prediction} = props
+    const editScenario = prediction !== undefined
+    const headerString = editScenario ? 'Edit Prediction' : 'Create Prediction'
+
+    const initialValues = {
+        user_id: editScenario ? prediction?.user_id : undefined,
+        game_id: editScenario ? prediction?.game_id : undefined,
+        home_score: editScenario ? prediction?.home_score : undefined,
+        away_score: editScenario ? prediction?.away_score : undefined,
+        result: editScenario ? prediction?.result : undefined,
+    }
+
     const [submit, setSubmit] = useState(false)
 
-    const {setData, post} = useForm();
+    const {setData, post, patch} = useForm();
 
     const onSubmit = (formName, info) => {
         setData(info.values)
@@ -16,28 +28,38 @@ export default function FormComponent(props) {
     }
 
     useEffect(() => {
-        if (submit) post(route("predictions.store"))
+        if (submit) {
+            if (prediction?.id) {
+                patch(route("predictions.update", prediction.id))
+            } else {
+                post(route("predictions.store"))
+            }
+        }
     }, [submit])
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create Prediction</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">{headerString}</h2>}
         >
-            <Head title="Create Prediction"/>
+            <Head title={headerString}/>
 
             <div className="py-4 px-2">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
-                        <Form>
+                        <Form initialValues={initialValues}>
 
                             <Form.Item
                                 name="user_id"
                                 label="Player"
                                 rules={[{required: true, message: 'Please select a player'}]}
                             >
-                                <Select placeholder="Please select a player" options={props.users}/>
+                                <Select
+                                    placeholder="Please select a player"
+                                    disabled={editScenario}
+                                    options={props.users}
+                                />
                             </Form.Item>
 
                             <Divider/>
@@ -47,7 +69,11 @@ export default function FormComponent(props) {
                                 label="Game"
                                 rules={[{required: true, message: 'Please select a team'}]}
                             >
-                                <Select placeholder="Please select a game" options={props.games}/>
+                                <Select
+                                    placeholder="Please select a game"
+                                    disabled={editScenario}
+                                    options={props.games}
+                                />
                             </Form.Item>
 
                             <Form.Item name="home_score"

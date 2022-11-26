@@ -43,6 +43,15 @@ class Prediction extends Model
         'result_points',
     ];
 
+    public static function updatables()
+    {
+        return [
+            'home_score',
+            'away_score',
+            'result',
+        ];
+    }
+
     protected $appends = ['predicted_score_line'];
 
     public function user()
