@@ -12,8 +12,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $users = User::select(['name', 'points'])
-            ->orderByDesc('points')
+        // Selecting only name and points was messing up the appended score_count and result_count attributes
+        $users = User::orderByDesc('points')
             ->get();
 
         $games = Game::with(['homeTeam', 'awayTeam'])

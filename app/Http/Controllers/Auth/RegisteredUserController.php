@@ -16,7 +16,7 @@ class RegisteredUserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('points')
+        $users = User::orderByDesc('points')
             ->orderBy('name')
             ->get();
 

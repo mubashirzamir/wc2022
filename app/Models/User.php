@@ -76,6 +76,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['result_count', 'score_count'];
+
     // Should be cached
     public static function filterForAntd()
     {
@@ -99,5 +101,22 @@ class User extends Authenticatable
                     'label' => $user->name
                 ];
             });
+    }
+
+    public function predictions()
+    {
+        return $this->hasMany('App\Models\Prediction', 'user_id', 'id');
+    }
+
+    // Is it more efficient to store this in DB when updating points? Most probably
+    public function getResultCountAttribute()
+    {
+        return $this->predictions()->where('result_points', '<>', 0)->get()->count();
+    }
+
+    // Is it more efficient to store this in DB when updating points? Most probably
+    public function getScoreCountAttribute()
+    {
+        return $this->predictions()->where('score_points', '<>', 0)->get()->count();
     }
 }
