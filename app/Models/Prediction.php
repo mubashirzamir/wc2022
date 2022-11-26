@@ -64,6 +64,9 @@ class Prediction extends Model
     {
         if ($updating) {
             $user->points -= $prediction->points;
+            $prediction->result_points = 0;
+            $prediction->score_points = 0;
+            $prediction->points = 0;
         }
 
         if ($game->result === $prediction->result) {
