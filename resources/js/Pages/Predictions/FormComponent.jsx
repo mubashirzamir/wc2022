@@ -6,7 +6,7 @@ import {FormProvider} from 'antd/es/form/context'
 
 export default function FormComponent(props) {
 
-    const {prediction} = props
+    const {prediction, games} = props
     const editScenario = prediction !== undefined
     const headerString = editScenario ? 'Edit Prediction' : 'Create Prediction'
 
@@ -19,6 +19,8 @@ export default function FormComponent(props) {
     }
 
     const [submit, setSubmit] = useState(false)
+    const [homeTeam, setHomeTeam] = useState(null)
+    const [awayTeam, setAwayTeam] = useState(null)
 
     const {setData, post, patch} = useForm();
 
@@ -37,6 +39,21 @@ export default function FormComponent(props) {
         }
     }, [submit])
 
+    const [form] = Form.useForm();
+
+    const handleFormValuesChange = (changedValues) => {
+        const formFieldName = Object.keys(changedValues)[0];
+        if (formFieldName === 'game_id') {
+            const game = games.find(game => game.value === form.getFieldValue('game_id'))
+            /**
+             * https://stackoverflow.com/questions/650022/how-do-i-split-a-string-with-multiple-separators-in-javascript
+             */
+            const teamNames = game.label.toString().split(/(?:,|vs)+/)
+            setHomeTeam(teamNames[0])
+            setAwayTeam(teamNames[1])
+        }
+    }
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -48,7 +65,7 @@ export default function FormComponent(props) {
             <div className="py-4 px-2">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
-                        <Form initialValues={initialValues}>
+                        <Form form={form} onValuesChange={handleFormValuesChange} initialValues={initialValues}>
 
                             <Form.Item
                                 name="user_id"
@@ -72,7 +89,7 @@ export default function FormComponent(props) {
                                 <Select
                                     placeholder="Please select a game"
                                     disabled={editScenario}
-                                    options={props.games}
+                                    options={games}
                                 />
                             </Form.Item>
 
@@ -94,8 +111,8 @@ export default function FormComponent(props) {
                                 rules={[{required: true, message: 'Please select a result'}]}
                             >
                                 <Select placeholder="Please select a result">
-                                    <Option value="h">Team 01 Win</Option>
-                                    <Option value="a">Team 02 Win</Option>
+                                    <Option value="h">{homeTeam}</Option>
+                                    <Option value="a">{awayTeam}</Option>
                                     <Option value="d">Draw</Option>
                                 </Select>
                             </Form.Item>

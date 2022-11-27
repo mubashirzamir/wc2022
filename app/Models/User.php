@@ -92,7 +92,8 @@ class User extends Authenticatable
     // Should be cached
     public static function selectForAntd()
     {
-        return self::get()
+        return self::orderBy('name')
+            ->get()
             ->map(function (User $user) {
                 return [
                     'value' => $user->id,

@@ -59,8 +59,8 @@ export const GamesTable = props => {
         },
         {
             title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
+            dataIndex: 'date_formatted',
+            key: 'date_formatted',
         },
     ];
 

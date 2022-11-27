@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -59,7 +60,7 @@ class Game extends Model
         ];
     }
 
-    protected $appends = ['score_line', 'versus'];
+    protected $appends = ['score_line', 'versus', 'date_formatted'];
 
     public function homeTeam()
     {
@@ -100,16 +101,20 @@ class Game extends Model
         return $this->getHomeTeamName() . ' vs ' . $this->getAwayTeamName();
     }
 
+    public function getDateFormattedAttribute()
+    {
+        return Carbon::parse($this->date)->format('d-M-Y');
+    }
+
     // Should be cached
     public static function selectForAntd()
     {
         return self::orderByDesc('date')
-            ->orderByDesc('time')
             ->get()
             ->map(function (Game $game) {
                 return [
                     'value' => $game->id,
-                    'label' => $game->versus
+                    'label' => $game->versus . ', ' . Carbon::parse($game->date)->format('d-M-Y'),
                 ];
             });
     }
@@ -118,11 +123,12 @@ class Game extends Model
     {
         $exists = Game::where('home_id', '=', $game->home_id)
             ->where('away_id', '=', $game->away_id)
+            ->where('home_id', '=', 'away_id')
             ->whereDate('date', '=', $game->date)
             ->exists();
 
         if ($exists) {
-            throw new UnprocessableEntityHttpException('Game already exists.');
+            throw new UnprocessableEntityHttpException('Game already exists or invalid game.');
         }
     }
 }
