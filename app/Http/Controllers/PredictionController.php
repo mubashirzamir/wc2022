@@ -10,9 +10,15 @@ use Inertia\Inertia;
 
 class PredictionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $predictions = Prediction::with(['user', 'game'])
+            ->when($request->has('user_id'), function ($builder) use ($request) {
+                $builder->where('user_id', '=', $request->get('user_id'));
+            })
+            ->when($request->has('game_id'), function ($builder) use ($request) {
+                $builder->where('game_id', '=', $request->get('game_id'));
+            })
             ->get();
 
         return Inertia::render('Predictions/index',

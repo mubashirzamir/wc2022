@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, InertiaLink} from '@inertiajs/inertia-react';
 import {Button} from 'antd'
@@ -42,6 +42,16 @@ export const UsersTable = props => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            render: (name, row) =>
+                <Fragment>
+                    {name}
+                    <InertiaLink
+                        href={route('predictions.index', {user_id: row.id})}
+                    >
+                        <Button className='float-right'>View Predictions</Button>
+                    </InertiaLink>
+                </Fragment>
+
         },
         {
             title: 'No. of Results',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, InertiaLink} from '@inertiajs/inertia-react';
 import {Button} from 'antd'
@@ -43,21 +43,24 @@ export const GamesTable = props => {
             dataIndex: 'score_line',
             key: 'id',
             render: (score_line, row) =>
-                <InertiaLink
-                    href={route('games.edit', row.id)}
-                >
-                    {score_line}
-                </InertiaLink>,
+                <Fragment>
+                    <InertiaLink
+                        href={route('games.edit', row.id)}
+                    >
+                        {score_line}
+                    </InertiaLink>
+
+                    <InertiaLink
+                        href={route('predictions.index', {game_id: row.id})}
+                    >
+                        <Button className='float-right'>View Predictions</Button>
+                    </InertiaLink>
+                </Fragment>
         },
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
-        },
-        {
-            title: 'Time',
-            dataIndex: 'time',
-            key: 'time',
         },
     ];
 
