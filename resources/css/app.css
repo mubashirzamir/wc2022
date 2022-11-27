@@ -1,3 +1,19 @@
 @tailwind base;
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    color: white;
+    background-color: #1677ff;
+}
+
+button:hover,
+[type='button']:hover,
+[type='reset']:hover,
+[type='submit']:hover {
+    color: white !important;
+}
+
 @tailwind components;
 @tailwind utilities;
