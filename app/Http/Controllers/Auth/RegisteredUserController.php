@@ -16,9 +16,7 @@ class RegisteredUserController extends Controller
 {
     public function index()
     {
-        $users = User::orderByDesc('points')
-            ->orderBy('name')
-            ->get();
+        $users = User::get();
 
         return Inertia::render('Users/index', [
             'users' => $users,

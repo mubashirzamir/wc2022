@@ -37,6 +37,8 @@ export default function Users(props) {
 
 export const UsersTable = props => {
 
+    console.log('mubashir', props)
+
     const columns = [
         {
             title: 'Name',

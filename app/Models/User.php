@@ -14,7 +14,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $id
  * @property string $name
  * @property string $email
- * @property int|null $points
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property bool $is_admin
@@ -54,7 +53,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'points'
     ];
 
     /**
@@ -76,7 +74,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['result_count', 'score_count'];
+    protected $appends = ['points', 'result_count', 'score_count'];
 
     // Should be cached
     public static function filterForAntd()
@@ -108,13 +106,19 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Prediction', 'user_id', 'id');
     }
 
-    // Is it more efficient to store this in DB when updating points? Most probably
+    // Cache this
+    public function getPointsAttribute()
+    {
+        return $this->predictions()->sum(\DB::raw('result_points + score_points'));
+    }
+
+    // Cache this
     public function getResultCountAttribute()
     {
         return $this->predictions()->where('result_points', '<>', 0)->get()->count();
     }
 
-    // Is it more efficient to store this in DB when updating points? Most probably
+    // Cache this
     public function getScoreCountAttribute()
     {
         return $this->predictions()->where('score_points', '<>', 0)->get()->count();

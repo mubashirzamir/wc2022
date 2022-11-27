@@ -13,8 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         // Selecting only name and points was messing up the appended score_count and result_count attributes
-        $users = User::orderByDesc('points')
-            ->get();
+        $users = User::get();
 
         $games = Game::with(['homeTeam', 'awayTeam'])
             ->whereDate('date', '=', Carbon::today())

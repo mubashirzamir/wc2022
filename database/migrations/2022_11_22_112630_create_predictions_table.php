@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('result');
             $table->integer('score_points')->nullable()->default(0);
             $table->integer('result_points')->nullable()->default(0);
-            $table->integer('points')->nullable()->default(0);
             $table->timestamps();
         });
     }

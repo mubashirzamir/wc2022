@@ -40,8 +40,6 @@ class Prediction extends Model
         'home_score',
         'away_score',
         'result',
-        'score_points',
-        'result_points',
     ];
 
     public static function updatables()
@@ -53,7 +51,7 @@ class Prediction extends Model
         ];
     }
 
-    protected $appends = ['predicted_score_line'];
+    protected $appends = ['points', 'predicted_score_line'];
 
     public function user()
     {
@@ -65,6 +63,11 @@ class Prediction extends Model
         return $this->hasOne('App\Models\Game', 'id', 'game_id');
     }
 
+    public function getPointsAttribute()
+    {
+        return $this->result_points + $this->score_points;
+    }
+
     public function getPredictedScoreLineAttribute()
     {
         return $this->game()->first()->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->game()->first()->getAwayTeamName();
@@ -74,10 +77,8 @@ class Prediction extends Model
     public static function commonPointsUpdateLogic($updating, User $user, Prediction $prediction, Game $game)
     {
         if ($updating) {
-            $user->points -= $prediction->points;
             $prediction->result_points = 0;
             $prediction->score_points = 0;
-            $prediction->points = 0;
         }
 
         if ($game->result === $prediction->result) {
@@ -86,9 +87,6 @@ class Prediction extends Model
                 $prediction->score_points = 2;
             }
         }
-
-        $prediction->points = $prediction->score_points + $prediction->result_points;
-        $user->points += $prediction->points;
 
         $user->saveQuietly();
         $prediction->saveQuietly();

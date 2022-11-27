@@ -59,12 +59,12 @@ export default function FormComponent(props) {
                                 <DatePicker/>
                             </Form.Item>
 
-                            <Form.Item name="time"
-                                       label="Time"
-                                // rules={[{required: true, message: 'Please select the time.'}]}
-                            >
-                                <TimePicker/>
-                            </Form.Item>
+                            {/*<Form.Item name="time"*/}
+                            {/*           label="Time"*/}
+                            {/*    // rules={[{required: true, message: 'Please select the time.'}]}*/}
+                            {/*>*/}
+                            {/*    <TimePicker/>*/}
+                            {/*</Form.Item>*/}
 
                             <Divider/>
 
