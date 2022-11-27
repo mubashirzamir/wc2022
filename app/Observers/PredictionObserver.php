@@ -14,6 +14,8 @@ class PredictionObserver
      */
     public function creating(Prediction $prediction)
     {
+        // Should be handled via rules
+        Prediction::uniqueCompositeKey($prediction);
         Prediction::commonValidateWinLogic($prediction);
     }
     /**

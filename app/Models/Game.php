@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * App\Models\Game
@@ -111,5 +112,17 @@ class Game extends Model
                     'label' => $game->versus
                 ];
             });
+    }
+
+    public static function uniqueCompositeKey(Game $game)
+    {
+        $exists = Game::where('home_id', '=', $game->home_id)
+            ->where('away_id', '=', $game->away_id)
+            ->whereDate('date', '=', $game->date)
+            ->exists();
+
+        if ($exists) {
+            throw new UnprocessableEntityHttpException('Game already exists.');
+        }
     }
 }

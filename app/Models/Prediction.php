@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * App\Models\Prediction
@@ -94,12 +95,22 @@ class Prediction extends Model
 
     // Common functions should eventually be stored appropriately
     // This logic should also be applied on the frontend
-    // This logic may also be applied via rules
     public static function commonValidateWinLogic($obj)
     {
         if (($obj->home_score > $obj->away_score && $obj->result !== 'h') ||
             ($obj->home_score < $obj->away_score && $obj->result !== 'a')) {
             throw new PreconditionFailedHttpException('Result does not match score.');
+        }
+    }
+
+    public static function uniqueCompositeKey(Prediction $prediction)
+    {
+        $exists = Prediction::where('user_id', '=', $prediction->user_id)
+            ->where('game_id', '=', $prediction->game_id)
+            ->exists();
+
+        if ($exists) {
+            throw new UnprocessableEntityHttpException('Prediction for this game already exists.');
         }
     }
 }

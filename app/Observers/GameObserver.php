@@ -13,9 +13,11 @@ class GameObserver
      * @param \App\Models\Prediction $prediction
      * @return void
      */
-    public function creating(Prediction $prediction)
+    public function creating(Game $game)
     {
-        Prediction::commonValidateWinLogic($prediction);
+        // Should be handled via rules
+        Game::uniqueCompositeKey($game);
+        Prediction::commonValidateWinLogic($game);
     }
     /**
      * Handle the Game "created" event.
