@@ -7,6 +7,16 @@ use App\Models\Prediction;
 class PredictionObserver
 {
     /**
+     * Handle the Prediction "creating" event.
+     *
+     * @param \App\Models\Prediction $prediction
+     * @return void
+     */
+    public function creating(Prediction $prediction)
+    {
+        Prediction::commonValidateWinLogic($prediction);
+    }
+    /**
      * Handle the Prediction "created" event.
      *
      * @param \App\Models\Prediction $prediction
@@ -25,6 +35,7 @@ class PredictionObserver
      */
     public function updating(Prediction $prediction)
     {
+        Prediction::commonValidateWinLogic($prediction);
         $this->updatePoints($prediction, true);
     }
 
@@ -36,7 +47,7 @@ class PredictionObserver
      */
     public function updated(Prediction $prediction)
     {
-        //
+
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 /**
  * App\Models\Prediction
@@ -69,6 +70,7 @@ class Prediction extends Model
         return $this->game()->first()->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->game()->first()->getAwayTeamName();
     }
 
+    // Common functions should eventually be stored appropriately
     public static function commonPointsUpdateLogic($updating, User $user, Prediction $prediction, Game $game)
     {
         if ($updating) {
@@ -90,5 +92,16 @@ class Prediction extends Model
 
         $user->saveQuietly();
         $prediction->saveQuietly();
+    }
+
+    // Common functions should eventually be stored appropriately
+    // This logic should also be applied on the frontend
+    // This logic may also be applied via rules
+    public static function commonValidateWinLogic($obj)
+    {
+        if (($obj->home_score > $obj->away_score && $obj->result !== 'h') ||
+            ($obj->home_score < $obj->away_score && $obj->result !== 'a')) {
+            throw new PreconditionFailedHttpException('Result does not match score.');
+        }
     }
 }

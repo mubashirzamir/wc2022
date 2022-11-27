@@ -8,6 +8,16 @@ use App\Models\Prediction;
 class GameObserver
 {
     /**
+     * Handle the Prediction "creating" event.
+     *
+     * @param \App\Models\Prediction $prediction
+     * @return void
+     */
+    public function creating(Prediction $prediction)
+    {
+        Prediction::commonValidateWinLogic($prediction);
+    }
+    /**
      * Handle the Game "created" event.
      *
      * @param \App\Models\Game $game
@@ -26,6 +36,7 @@ class GameObserver
      */
     public function updating(Game $game)
     {
+        Prediction::commonValidateWinLogic($game);
         $this->updatePoints($game, true);
     }
 
