@@ -122,7 +122,11 @@ class User extends Authenticatable
     // Cache this
     public function getResultCountAttribute()
     {
-        return $this->predictions()->where('result_points', '<>', 0)->get()->count();
+        return $this->predictions()
+            ->where('score_points', '=', 0)
+            ->where('result_points', '<>', 0)
+            ->get()
+            ->count();
     }
 
     // Cache this
