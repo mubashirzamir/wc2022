@@ -19,6 +19,7 @@ class PredictionController extends Controller
             ->when($request->has('game_id'), function ($builder) use ($request) {
                 $builder->where('game_id', '=', $request->get('game_id'));
             })
+            ->orderByDesc('created_at')
             ->get();
 
         return Inertia::render('Predictions/index',

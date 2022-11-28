@@ -84,9 +84,10 @@ class Prediction extends Model
 
         if ($game->result === $prediction->result) {
             $prediction->result_points = 1;
-            if ($game->home_score === $prediction->home_score && $game->away_score === $prediction->away_score) {
-                $prediction->score_points = 2;
-            }
+        }
+
+        if ($game->home_score === $prediction->home_score && $game->away_score === $prediction->away_score) {
+            $prediction->score_points = 2;
         }
 
         $user->saveQuietly();
