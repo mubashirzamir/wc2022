@@ -54,9 +54,9 @@ export const UsersTable = props => {
 
         },
         {
-            title: 'No. of Results',
-            dataIndex: 'result_count',
-            key: 'result_count',
+            title: 'Games Played',
+            dataIndex: 'game_count',
+            key: 'game_count',
 
         },
         {

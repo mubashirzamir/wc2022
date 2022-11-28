@@ -74,7 +74,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['points', 'result_count', 'score_count'];
+    protected $appends = ['points', 'game_count', 'result_count', 'score_count'];
 
     // Should be cached
     public static function filterForAntd()
@@ -111,6 +111,12 @@ class User extends Authenticatable
     public function getPointsAttribute()
     {
         return $this->predictions()->sum(\DB::raw('result_points + score_points'));
+    }
+
+    // Cache this
+    public function getGameCountAttribute()
+    {
+        return Game::count();
     }
 
     // Cache this
