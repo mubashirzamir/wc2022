@@ -60,14 +60,14 @@ export default function FormComponent(props) {
     }
 
     const setHomeTeamName = () => {
-        const team = teams.find(team => team.value === editScenario ? game?.home_id : form.getFieldValue('home_id'))
+        const team = teams.find(team => team.value === form.getFieldValue('home_id'))
         if (team) {
             setHomeTeam(team.label)
         }
     }
 
     const setAwayTeamName = () => {
-        const team = teams.find(team => team.value === editScenario ? game?.away_id : form.getFieldValue('away_id'))
+        const team = teams.find(team => team.value === form.getFieldValue('away_id'))
         if (team) {
             setAwayTeam(team.label)
         }
