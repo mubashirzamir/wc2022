@@ -39,7 +39,6 @@ export default function FormComponent(props) {
     }, [])
 
     useEffect(() => {
-
         if (submit) {
             if (game?.id) {
                 patch(route("games.update", game.id))
@@ -61,13 +60,17 @@ export default function FormComponent(props) {
     }
 
     const setHomeTeamName = () => {
-        const team = teams.find(team => team.value === form.getFieldValue('home_id'))
-        setHomeTeam(team.label)
+        const team = teams.find(team => team.value === editScenario ? game?.home_id : form.getFieldValue('home_id'))
+        if (team) {
+            setHomeTeam(team.label)
+        }
     }
 
     const setAwayTeamName = () => {
-        const team = teams.find(team => team.value === form.getFieldValue('away_id'))
-        setAwayTeam(team.label)
+        const team = teams.find(team => team.value === editScenario ? game?.away_id : form.getFieldValue('away_id'))
+        if (team) {
+            setAwayTeam(team.label)
+        }
     }
 
     return (
@@ -137,9 +140,9 @@ export default function FormComponent(props) {
                                 rules={[{required: true, message: 'Please select a result'}]}
                             >
                                 <Select placeholder="Please select a result">
-                                    <Option value="h">{homeTeam}</Option>
-                                    <Option value="a">{awayTeam}</Option>
-                                    <Option value="d">Draw</Option>
+                                    <Select.Option value="h">{homeTeam}</Select.Option>
+                                    <Select.Option value="a">{awayTeam}</Select.Option>
+                                    <Select.Option value="d">Draw</Select.Option>
                                 </Select>
                             </Form.Item>
 

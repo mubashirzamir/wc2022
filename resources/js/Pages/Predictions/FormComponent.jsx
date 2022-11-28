@@ -54,13 +54,15 @@ export default function FormComponent(props) {
     }
 
     const setTeamNames = () => {
-        const game = games.find(game => game.value === form.getFieldValue('game_id'))
+        const game = games.find(game => game.value === editScenario ? prediction.game_id : form.getFieldValue('game_id'))
         /**
          * https://stackoverflow.com/questions/650022/how-do-i-split-a-string-with-multiple-separators-in-javascript
          */
-        const teamNames = game.label.toString().split(/(?:,|vs)+/)
-        setHomeTeam(teamNames[0])
-        setAwayTeam(teamNames[1])
+        if(game) {
+            const teamNames = game.label.toString().split(/(?:,|vs)+/)
+            setHomeTeam(teamNames[0])
+            setAwayTeam(teamNames[1])
+        }
     }
 
     return (
@@ -120,9 +122,9 @@ export default function FormComponent(props) {
                                 rules={[{required: true, message: 'Please select a result'}]}
                             >
                                 <Select placeholder="Please select a result">
-                                    <Option value="h">{homeTeam}</Option>
-                                    <Option value="a">{awayTeam}</Option>
-                                    <Option value="d">Draw</Option>
+                                    <Select.Option value="h">{homeTeam}</Select.Option>
+                                    <Select.Option value="a">{awayTeam}</Select.Option>
+                                    <Select.Option value="d">Draw</Select.Option>
                                 </Select>
                             </Form.Item>
 
