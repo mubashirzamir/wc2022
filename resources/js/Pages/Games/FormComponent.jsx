@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/inertia-react';
-import {Form, Input, Button, DatePicker, TimePicker, Select, InputNumber, Divider} from 'antd'
+import {Form, Input, Button, DatePicker, Select, InputNumber, Divider} from 'antd'
 import {FormProvider} from 'antd/es/form/context'
 import {sanitizeDateTime} from '@/utilities'
 import moment from 'moment'
@@ -13,8 +13,7 @@ export default function FormComponent(props) {
     const headerString = editScenario ? 'Edit Game' : 'Create Game'
 
     const initialValues = {
-        date: editScenario ? moment(game?.date) : moment(),
-        time: editScenario ? moment(game?.time, 'HH:mm') : moment(),
+        date: editScenario ? moment(game?.date) : undefined,
         home_id: editScenario ? game?.home_id : undefined,
         home_score: editScenario ? game?.home_score : undefined,
         away_id: editScenario ? game?.away_id : undefined,

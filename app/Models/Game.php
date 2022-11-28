@@ -123,11 +123,10 @@ class Game extends Model
     {
         $exists = Game::where('home_id', '=', $game->home_id)
             ->where('away_id', '=', $game->away_id)
-            ->where('home_id', '=', 'away_id')
             ->whereDate('date', '=', $game->date)
             ->exists();
 
-        if ($exists) {
+        if ($exists || $game->home_id === $game->away_id) {
             throw new UnprocessableEntityHttpException('Game already exists or invalid game.');
         }
     }
