@@ -6,12 +6,13 @@ import {FormProvider} from 'antd/es/form/context'
 
 export default function FormComponent(props) {
 
+    const {user} = props.auth
     const {prediction, games} = props
     const editScenario = prediction !== undefined
     const headerString = editScenario ? 'Edit Prediction' : 'Create Prediction'
 
     const initialValues = {
-        user_id: editScenario ? prediction?.user_id : undefined,
+        user_id: editScenario ? prediction?.user_id : user.id,
         game_id: editScenario ? prediction?.game_id : undefined,
         home_score: editScenario ? prediction?.home_score : undefined,
         away_score: editScenario ? prediction?.away_score : undefined,
@@ -85,7 +86,7 @@ export default function FormComponent(props) {
                             >
                                 <Select
                                     placeholder="Please select a player"
-                                    disabled={editScenario}
+                                    disabled={editScenario || !user.is_admin}
                                     options={props.users}
                                 />
                             </Form.Item>

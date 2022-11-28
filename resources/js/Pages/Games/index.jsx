@@ -5,6 +5,9 @@ import {Button} from 'antd'
 import {GenericTable} from '@/Components/GenericTable'
 
 export default function Games(props) {
+
+    const {is_admin} = props.auth.user
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -17,11 +20,14 @@ export default function Games(props) {
             <div className="py-4">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-                    <div className="pb-3">
-                        <InertiaLink href={route("games.create")}>
-                            <Button>Create</Button>
-                        </InertiaLink>
-                    </div>
+                    {
+                        is_admin &&
+                        <div className="pb-3">
+                            <InertiaLink href={route("games.create")}>
+                                <Button>Create</Button>
+                            </InertiaLink>
+                        </div>
+                    }
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <GamesTable data={props.games}/>
