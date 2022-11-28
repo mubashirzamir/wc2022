@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
@@ -96,9 +97,9 @@ class Prediction extends Model
 
     public static function preventTardiness(Game $game)
     {
-//        if (Carbon::now()->gt($game->getCarbonInstance()) && \Auth::user()->is_admin === false) {
-//            throw new PreconditionFailedHttpException('Cannot change predictions for matches which have started/finished.');
-//        }
+        if (Carbon::now('Asia/Karachi')->gt($game->getCarbonInstance()) && \Auth::user()->is_admin === false) {
+            throw new PreconditionFailedHttpException('Please use time travel, cannot change predictions for matches which have started/finished.');
+        }
     }
 
     // Common functions should eventually be stored appropriately

@@ -133,6 +133,6 @@ class Game extends Model
 
     public function getCarbonInstance()
     {
-        return Carbon::createFromFormat('dd-mm-yyyy hh:mm:ss', $this->date . ' ' . $this->time);
+        return Carbon::parse($this->date . ' ' . $this->time, 'Asia/Karachi');
     }
 }
