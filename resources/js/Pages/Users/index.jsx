@@ -68,6 +68,7 @@ export const UsersTable = props => {
             title: 'Points',
             dataIndex: 'points',
             key: 'points',
+            sorter: (a, b) => a.points - b.points,
         },
     ];
 

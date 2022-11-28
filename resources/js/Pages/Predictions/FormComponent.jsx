@@ -30,6 +30,11 @@ export default function FormComponent(props) {
     }
 
     useEffect(() => {
+        setTeamNames()
+    }, [])
+
+    useEffect(() => {
+        setTeamNames()
         if (submit) {
             if (prediction?.id) {
                 patch(route("predictions.update", prediction.id))
@@ -44,14 +49,18 @@ export default function FormComponent(props) {
     const handleFormValuesChange = (changedValues) => {
         const formFieldName = Object.keys(changedValues)[0];
         if (formFieldName === 'game_id') {
-            const game = games.find(game => game.value === form.getFieldValue('game_id'))
-            /**
-             * https://stackoverflow.com/questions/650022/how-do-i-split-a-string-with-multiple-separators-in-javascript
-             */
-            const teamNames = game.label.toString().split(/(?:,|vs)+/)
-            setHomeTeam(teamNames[0])
-            setAwayTeam(teamNames[1])
+            setTeamNames()
         }
+    }
+
+    const setTeamNames = () => {
+        const game = games.find(game => game.value === form.getFieldValue('game_id'))
+        /**
+         * https://stackoverflow.com/questions/650022/how-do-i-split-a-string-with-multiple-separators-in-javascript
+         */
+        const teamNames = game.label.toString().split(/(?:,|vs)+/)
+        setHomeTeam(teamNames[0])
+        setAwayTeam(teamNames[1])
     }
 
     return (

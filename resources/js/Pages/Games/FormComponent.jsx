@@ -8,7 +8,7 @@ import moment from 'moment'
 
 export default function FormComponent(props) {
 
-    const {game} = props
+    const {game, teams} = props
     const editScenario = game !== undefined
     const headerString = editScenario ? 'Edit Game' : 'Create Game'
 
@@ -23,6 +23,9 @@ export default function FormComponent(props) {
     }
 
     const [submit, setSubmit] = useState(false)
+    const [homeTeam, setHomeTeam] = useState(null)
+    const [awayTeam, setAwayTeam] = useState(null)
+
     const {setData, post, patch} = useForm();
 
     const onSubmit = (formName, info) => {
@@ -31,6 +34,12 @@ export default function FormComponent(props) {
     }
 
     useEffect(() => {
+        setHomeTeamName()
+        setAwayTeamName()
+    }, [])
+
+    useEffect(() => {
+
         if (submit) {
             if (game?.id) {
                 patch(route("games.update", game.id))
@@ -39,6 +48,27 @@ export default function FormComponent(props) {
             }
         }
     }, [submit])
+
+    const [form] = Form.useForm();
+
+    const handleFormValuesChange = (changedValues) => {
+        const formFieldName = Object.keys(changedValues)[0];
+        if (formFieldName === 'home_id') {
+            setHomeTeamName()
+        } else if (formFieldName === 'away_id') {
+            setAwayTeamName()
+        }
+    }
+
+    const setHomeTeamName = () => {
+        const team = teams.find(team => team.value === form.getFieldValue('home_id'))
+        setHomeTeam(team.label)
+    }
+
+    const setAwayTeamName = () => {
+        const team = teams.find(team => team.value === form.getFieldValue('away_id'))
+        setAwayTeam(team.label)
+    }
 
     return (
         <AuthenticatedLayout
@@ -51,20 +81,13 @@ export default function FormComponent(props) {
             <div className="py-4 px-2">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <FormProvider onFormFinish={(formName, info) => onSubmit(formName, info)}>
-                        <Form initialValues={initialValues}>
+                        <Form form={form} onValuesChange={handleFormValuesChange} initialValues={initialValues}>
                             <Form.Item name="date"
                                        label="Date"
                                        rules={[{required: true, message: 'Please select the date.'}]}
                             >
                                 <DatePicker/>
                             </Form.Item>
-
-                            {/*<Form.Item name="time"*/}
-                            {/*           label="Time"*/}
-                            {/*    // rules={[{required: true, message: 'Please select the time.'}]}*/}
-                            {/*>*/}
-                            {/*    <TimePicker/>*/}
-                            {/*</Form.Item>*/}
 
                             <Divider/>
 
@@ -76,7 +99,7 @@ export default function FormComponent(props) {
                                 <Select
                                     placeholder="Please select a team"
                                     disabled={editScenario}
-                                    options={props.teams}
+                                    options={teams}
                                 />
                             </Form.Item>
 
@@ -96,7 +119,7 @@ export default function FormComponent(props) {
                                 <Select
                                     placeholder="Please select a team"
                                     disabled={editScenario}
-                                    options={props.teams}
+                                    options={teams}
                                 />
                             </Form.Item>
 
@@ -114,8 +137,8 @@ export default function FormComponent(props) {
                                 rules={[{required: true, message: 'Please select a result'}]}
                             >
                                 <Select placeholder="Please select a result">
-                                    <Option value="h">Team 01 Win</Option>
-                                    <Option value="a">Team 02 Win</Option>
+                                    <Option value="h">{homeTeam}</Option>
+                                    <Option value="a">{awayTeam}</Option>
                                     <Option value="d">Draw</Option>
                                 </Select>
                             </Form.Item>
