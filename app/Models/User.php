@@ -116,7 +116,7 @@ class User extends Authenticatable
     // Cache this
     public function getGameCountAttribute()
     {
-        return Game::count();
+        return Game::whereNotNull('result')->count();
     }
 
     // Cache this

@@ -90,7 +90,7 @@ class Game extends Model
     public function getScoreLineAttribute()
     {
         if ($this->home_score === null || $this->away_score === null) {
-            return $this->getHomeTeamName() . 'TBP' . $this->getAwayTeamName();
+            return $this->versus;
         }
 
         return $this->getHomeTeamName() . ' ' . $this->home_score . ' - ' . $this->away_score . ' ' . $this->getAwayTeamName();

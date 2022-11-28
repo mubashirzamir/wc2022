@@ -107,7 +107,7 @@ export default function FormComponent(props) {
 
                             <Form.Item name="home_score"
                                        label="Team 01 Score"
-                                       rules={[{required: true, type: 'number', min: 0, max: 99}]}>
+                            >
                                 <InputNumber/>
                             </Form.Item>
 
@@ -127,7 +127,7 @@ export default function FormComponent(props) {
 
                             <Form.Item name="away_score"
                                        label="Team 02 Score"
-                                       rules={[{required: true, type: 'number', min: 0, max: 99}]}>
+                            >
                                 <InputNumber defaultValue={editScenario ? game?.away_score : undefined}/>
                             </Form.Item>
 
@@ -136,7 +136,6 @@ export default function FormComponent(props) {
                             <Form.Item
                                 name="result"
                                 label="Result"
-                                rules={[{required: true, message: 'Please select a result'}]}
                             >
                                 <Select placeholder="Please select a result">
                                     <Select.Option value="h">{homeTeam}</Select.Option>
