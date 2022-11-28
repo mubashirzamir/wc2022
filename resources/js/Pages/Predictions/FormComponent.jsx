@@ -105,13 +105,13 @@ export default function FormComponent(props) {
                             </Form.Item>
 
                             <Form.Item name="home_score"
-                                       label="Team 01 Score"
+                                       label={homeTeam ? homeTeam + ' score' : 'Team 01 score'}
                                        rules={[{required: true, type: 'number', min: 0, max: 99}]}>
                                 <InputNumber/>
                             </Form.Item>
 
                             <Form.Item name="away_score"
-                                       label="Team 02 Score"
+                                       label={awayTeam ? awayTeam + ' score' : 'Team 02 score'}
                                        rules={[{required: true, type: 'number', min: 0, max: 99}]}>
                                 <InputNumber/>
                             </Form.Item>
