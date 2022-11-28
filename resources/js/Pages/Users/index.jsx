@@ -65,6 +65,11 @@ export const UsersTable = props => {
             key: 'score_count',
         },
         {
+            title: 'No. of Results',
+            dataIndex: 'result_count',
+            key: 'result_count',
+        },
+        {
             title: 'Points',
             dataIndex: 'points',
             key: 'points',
