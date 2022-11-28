@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Game;
 use App\Models\Prediction;
 
 class PredictionObserver
@@ -16,6 +17,10 @@ class PredictionObserver
     {
         // Should be handled via rules
         Prediction::uniqueCompositeKey($prediction);
+
+        Prediction::preventTardiness(Game::find($prediction->game_id));
+
+        // Should be handled via rules
         Prediction::commonValidateWinLogic($prediction);
     }
     /**
@@ -26,6 +31,8 @@ class PredictionObserver
      */
     public function created(Prediction $prediction)
     {
+        Prediction::preventTardiness(Game::find($prediction->game_id));
+
         $this->updatePoints($prediction);
     }
 
@@ -37,6 +44,8 @@ class PredictionObserver
      */
     public function updating(Prediction $prediction)
     {
+        Prediction::preventTardiness(Game::find($prediction->game_id));
+
         Prediction::commonValidateWinLogic($prediction);
         $this->updatePoints($prediction, true);
     }

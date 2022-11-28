@@ -130,4 +130,9 @@ class Game extends Model
             throw new UnprocessableEntityHttpException('Game already exists or invalid game.');
         }
     }
+
+    public function getCarbonInstance()
+    {
+        return Carbon::createFromFormat('dd-mm-yyyy hh:mm:ss', $this->date . ' ' . $this->time);
+    }
 }

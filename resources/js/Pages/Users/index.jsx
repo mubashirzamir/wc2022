@@ -16,13 +16,7 @@ export default function Users(props) {
 
             <div className="py-4">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-                    <div className="pb-3">
-                        <InertiaLink href={route("users.create")}>
-                            <Button>Create</Button>
-                        </InertiaLink>
-                    </div>
-
+                    
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <UsersTable data={props.users}/>
                     </div>

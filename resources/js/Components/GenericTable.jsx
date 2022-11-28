@@ -7,6 +7,7 @@ export const GenericTable = props => {
         <Table
             columns={props.columns}
             dataSource={props.data}
+            scroll={{ x: 400 }}
         />
     )
 

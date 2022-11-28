@@ -94,6 +94,13 @@ class Prediction extends Model
         $prediction->saveQuietly();
     }
 
+    public static function preventTardiness(Game $game)
+    {
+//        if (Carbon::now()->gt($game->getCarbonInstance()) && \Auth::user()->is_admin === false) {
+//            throw new PreconditionFailedHttpException('Cannot change predictions for matches which have started/finished.');
+//        }
+    }
+
     // Common functions should eventually be stored appropriately
     // This logic should also be applied on the frontend
     public static function commonValidateWinLogic($obj)
