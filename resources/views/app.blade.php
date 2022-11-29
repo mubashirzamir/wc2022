@@ -11,12 +11,12 @@
 
         <!-- Scripts -->
         @inertiaHead
+        @inertia
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     </head>
     <body class="font-sans antialiased">
-        @inertia
         <div id="modal-root"></div>
     </body>
 </html>
